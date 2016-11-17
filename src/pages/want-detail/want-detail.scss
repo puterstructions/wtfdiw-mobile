@@ -1,0 +1,89 @@
+.want-detail {
+  ion-navbar {
+    height: 160px;
+
+    .toolbar-background-md {
+      background: url('../assets/images/bg/cyan-yellow.png') no-repeat top center;
+      background-size: cover;
+    }
+
+    &.toolbar {
+      align-items: initial;
+    }
+  }
+
+  ion-toolbar {
+    color: #fff;
+    overflow: visible;
+    padding: 16px 0 8px;
+
+    h3, h4 {
+      margin: 8px 0;
+    }
+
+    h3 {
+      font-size: 1.8rem;
+    }
+
+    h4, p {
+      font-size: 1.3rem;
+    }
+  }
+
+  .tally-list {
+    padding: 10px 20% 0;
+
+    ion-col {
+      ion-icon {
+        max-width: 20px;
+        font-size: 1.8rem;
+
+        &[name="thumbs-down"] {
+          padding-top: 2px;
+        }
+      }
+
+      button {
+        font-size: 1.3rem;
+        margin: 0 auto;
+      }
+    }
+
+    p {
+      margin: 0 6px 0 2px;
+    }
+  }
+
+  ion-list {
+    ion-list-header {
+      color: color($colors, secondary);
+    }
+
+    p {
+      color: color($colors, light);
+      font-size: 1.3rem;
+    }
+  }
+
+  .decide-btns {
+    button {
+      &,
+      &:hover:not(.disable-hover),
+      &.activated {
+        background-color: #fff;
+      }
+
+      &.fab-close-active {
+        color: color($colors, primary);
+      }
+    }
+
+    ion-fab-list {
+      button {
+        ion-icon {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+}

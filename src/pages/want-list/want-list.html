@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>WTFDIW</ion-title>
+    <ion-buttons end>
+      <div margin-horizontal>
+        <ion-toggle checked="false"
+          color="primary"
+          [(ngModel)]="decidedToggle"
+          (ionChange)="decidedToggleChanged($event)">
+          <ion-icon name="done-all"></ion-icon>
+        </ion-toggle>
+      </div>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="want-list outer-content">
+  <ion-list>
+    <ion-list-header>
+      {{decidedToggle ? 'Decided Wants' : 'Latest Wants'}}
+    </ion-list-header>
+
+    <button ion-item class="want-item" *ngFor="let want of wants | async" (click)="navigateToDetail(want)">
+      <ion-badge item-left>
+        <ion-icon name="{{getTallyIcon((want.samples | async))}}"
+          color="{{getTallyColor((want.samples | async))}}">
+        </ion-icon>
+      </ion-badge>
+
+      <h2 class="ellipsis">
+        {{want.description}}
+      </h2>
+      <p>{{want.ts | date:'mediumDate'}}</p>
+
+      <ion-note item-right>
+        <ion-grid no-padding>
+          <ion-row>
+            <ion-col center no-padding>
+              <ion-icon name="thumbs-up" color="positive"></ion-icon>
+            </ion-col>
+            <ion-col center>
+              <p>{{getYesTally((want.samples | async))}}</p>
+            </ion-col>
+            <ion-col center no-padding>
+              <ion-icon name="thumbs-down" color="negative"></ion-icon>
+            </ion-col>
+            <ion-col center>
+              <p>{{getNoTally((want.samples | async))}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-note>
+    </button>
+  </ion-list>
+
+  <ion-fab bottom right>
+    <button ion-fab color="secondary" (click)="presentCreateWantModal()">
+      <ion-icon name="add" is-active="false"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

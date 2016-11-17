@@ -1,0 +1,83 @@
+$login-colors: (
+  google:   #d34836,
+  facebook: #3b5998,
+  twitter:  #00aced
+);
+
+.login {
+  background: url('../assets/images/bg/cyan-yellow.png') no-repeat center center fixed;
+  background-size: cover;
+
+  ion-grid,
+  ion-row {
+    height: 100%;
+  }
+
+  .login-card {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+
+    .signup {
+      padding: 0;
+    }
+  }
+}
+
+.provider-error,
+.form-error {
+  background-color: color($colors, danger);
+
+  ion-card-content {
+    p {
+      color: #fff;
+    }
+  }
+}
+
+.login-split {
+  position: relative;
+  margin: 30px 15px;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    width: 50%;
+    top: 50%;
+    border-bottom: 0.1rem solid color($colors, light);
+  }
+
+  &:before {
+    left: -2rem;
+  }
+
+  &:after {
+    right: -2rem;
+  }
+}
+
+.google-btn {
+  background-color: color($login-colors, google);
+
+  &:hover:not(.disable-hover),
+  &.activated {
+    background-color: lighten(color($login-colors, google), 10%);
+  }
+}
+
+.facebook-btn {
+  background-color: color($login-colors, facebook);
+
+  &:hover:not(.disable-hover),
+  &.activated {
+    background-color: lighten(color($login-colors, facebook), 10%);
+  }
+}
+
+.twitter-btn {
+  background-color: color($login-colors, twitter);
+
+  &:hover:not(.disable-hover),
+  &.activated {
+    background-color: lighten(color($login-colors, twitter), 10%);
+  }
+}

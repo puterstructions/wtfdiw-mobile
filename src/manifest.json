@@ -1,0 +1,14 @@
+{
+  "name": "wtfdiw-mobile",
+  "short_name": "WTFDIW",
+  "start_url": "index.html",
+  "display": "standalone",
+  "icons": [{
+    "src": "assets/imgs/logo.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }],
+  "background_color": "#00bbff",
+  "theme_color": "#00bbff",
+  "gcm_sender_id": "573855873198"
+}

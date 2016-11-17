@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <title>WTFDIW</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="theme-color" content="#00bbff">
+  <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
+  <link rel="manifest" href="manifest.json">
+  <!-- cordova.js required for cordova apps -->
+  <script src="cordova.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('service worker installed'))
+        .catch(err => console.log('service worker error', err));
+    }
+  </script>
+  <link href="build/main.css" rel="stylesheet">
+</head>
+<body>
+  <ion-app class="md"></ion-app>
+  <script src="build/polyfills.js"></script>
+  <script src="build/main.js"></script>
+</body>
+</html>

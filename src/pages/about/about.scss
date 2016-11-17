@@ -1,0 +1,54 @@
+.about {
+  ion-navbar {
+    height: 160px;
+
+    .toolbar-background-md {
+      background: url('../assets/images/bg/blue-grey-light-blue.png') no-repeat top center;
+      background-size: cover;
+    }
+
+    &.toolbar {
+      align-items: initial;
+    }
+  }
+
+  ion-toolbar {
+    color: #fff;
+    overflow: visible;
+    padding: 16px 0 8px;
+
+    h3, h4 {
+      margin: 8px 0;
+    }
+
+    h3 {
+      font-size: 1.8rem;
+    }
+
+    h4, p {
+      font-size: 1.3rem;
+    }
+  }
+
+  .rate-btns {
+    button {
+      &,
+      &:hover:not(.disable-hover),
+      &.activated {
+        background-color: #fff;
+      }
+
+      &.fab-close-active {
+        color: color($colors, primary);
+      }
+    }
+
+    ion-fab-list {
+      button {
+        ion-icon {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+}

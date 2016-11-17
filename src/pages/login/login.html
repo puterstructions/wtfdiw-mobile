@@ -1,0 +1,69 @@
+<ion-content padding class="login">
+  <ion-grid>
+    <ion-row>
+      <ion-col center>
+        <ion-card class="login-card">
+          <ion-navbar>
+            <ion-title>
+              Login
+            </ion-title>
+          </ion-navbar>
+
+          <ion-card-content>
+            <button ion-button block icon-left class="google-btn" (click)="loginUserWithGoogle()">
+              <ion-icon name="logo-google"></ion-icon>
+              Login with Google+
+            </button>
+            <button ion-button block icon-left class="facebook-btn" (click)="loginUserWithFacebook()">
+              <ion-icon name="logo-facebook"></ion-icon>
+              Login with Facebook
+            </button>
+            <button ion-button block icon-left class="twitter-btn" (click)="loginUserWithTwitter()">
+              <ion-icon name="logo-twitter"></ion-icon>
+              Login with Twitter
+            </button>
+
+            <ion-card margin-top class="provider-error" *ngIf="providerError">
+              <ion-card-content>
+                <p>{{providerError}}</p>
+              </ion-card-content>
+            </ion-card>
+
+            <div margin text-center text-uppercase class="login-split">
+              or
+            </div>
+
+            <ion-card margin-bottom class="form-error" *ngIf="formError">
+              <ion-card-content>
+                <p>{{formError}}</p>
+              </ion-card-content>
+            </ion-card>
+
+            <form [formGroup]="form" (submit)="loginUserWithEmail()">
+              <ion-list inset>
+                <ion-item>
+                  <ion-label>
+                    <ion-icon name="mail"></ion-icon>
+                  </ion-label>
+                  <ion-input [(ngModel)]="email" formControlName="email" type="text" placeholder="Email"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    <ion-icon name="unlock"></ion-icon>
+                  </ion-label>
+                  <ion-input [(ngModel)]="password" formControlName="password" type="password" placeholder="Password"></ion-input>
+                </ion-item>
+              </ion-list>
+              <button ion-button block margin-top type="submit">Login</button>
+            </form>
+
+            <ion-item no-padding text-center class="signup">
+              <p>Don't have an account?</p>
+              <button ion-button small clear item-right (click)="navigateToUserRegistration()">Sign up</button>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

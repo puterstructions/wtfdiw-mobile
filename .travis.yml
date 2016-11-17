@@ -1,0 +1,54 @@
+language: node_js
+branches:
+  only:
+  - master
+
+node_js:
+  - "7.0"
+
+addons:
+  apt:
+    packages:
+    - oracle-java8-installer
+
+install:
+  - npm install -g cordova ionic
+  - npm install
+  - wget http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
+  - tar -xvf android-sdk_r24.4.1-linux.tgz
+  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter platform-tools
+  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter build-tools-25.0.0
+  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter android-23
+  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter android-24
+  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter extra-android-support
+  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter extra-android-m2repository
+  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter extra-google-m2repository
+
+before_script:
+  - export ANDROID_HOME=$PWD/android-sdk-linux
+  - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+  - export PATH=${JAVA_HOME}/bin:${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/25.0.0
+
+script:
+  - ionic state restore
+  - ionic plugin add https://github.com/phonegap/phonegap-plugin-push#v2.0.x --variable SENDER_ID="573855873198"
+  - ionic platform rm android
+  - ionic platform add android
+  - ionic build android
+
+deploy:
+  provider: s3
+  access_key_id: AKIAIRMJ32UVX5O6AYQA
+  secret_access_key:
+    secure: "FrP5iiMs4L8fKSkWz1TtMQ+/yzQUHx65ul5unTuUK+HZLPZA+KU2nZdZ38hyyR4OId1OLgvYXI1IUu6BqhyeazoxcpdLYOA8FY8ALjtRFXZI19J4aOcoP+IewTLqCS/kP/AMXWGmdGWh6i1G4WJ3CesmjIlNiXYCNEY94bt3POVaxKtnkC5m/TSQzA0w2GXOiZHl3SSU/80CUPk8S4GeRvHX6SC2OX+rMCy1DQSBZQa0HnMRbLJDnTTyv9Fp2kJxVoJBuhZ+wnQR7IFjdYfbkeKeywjv2DALaCHGDk5eN71R9pea8k/6I6fCnF7Z/9AK55ySljs3qEbsW/7olDtv5h45eLZurbn6Hx2DBAIUBvke30r5aRtf/DU0JoGVY6K4TF+d0J7BF6zvMK1maN9b4TQoFH9ENKdzTHHe4+zUjmr5V2mKStjvnDEuhX/oH2bC+L6UGH5+YDN/AEtPOCy+0RwhIus7/d/k72vgQBbnhUkFVBzJTbDaxUcyc4lEJ3tZ/2w0NyU1fkWIXtKWFtU/Ml2NZ18lv2RRrif8+bJX3ucQKL9fTmDZzG4GbTVf9oBXJIcgLY8uqUEgeN+5PIh/G20sM7Yg8gYYCIBg+yBL6tOxf01d6gTbPv/LPKoTjycGX5kiLPyb22/SWlMq8dO8PHKfUeS/DDDejzOFlz0TJRo="
+  bucket: wtfdiw-mobile
+  skip_cleanup: true
+  local-dir: platforms/android/build/outputs/apk
+  upload-dir: latest
+  acl: public_read
+  on:
+    repo: puterstructions/wtfdiw-mobile
+
+notifications:
+  slack:
+    secure: iygUiicsZHkUaHC+zZoGMpdRzpZvGvsBm+eHvFt/dGOBZdhdVCAj2oTMECyDrHfCgWH8jvnhxT24U6vXAmTKXCf+Jqd3H3Of0hqUWAfb9RCaPoWcBaTfl45wz8lPbJ0ESU1Z0RP71laxG8clTzibeV4rJ3UwrxOonl/Bi0vpypX0vwQm9AwAWOZEcnwIYJFdoi1eKH+lDDBeCMiwQ8XEG3qnNvEMK3KRlQPwLvX895o1O1NSvcV4dbFbxn68pOlQN/15ILeQNSoaGWG7Akng/5elKhZBenO7R4VOcrSx22RW67EEoY5qfazSNyUzgdQT8EJ7ZetZZkpSEq5ex31GsIpamwJOzd4NKchh+rWvJZxThSPmzfZzGW33sZI6Buyq5i3Eddz5TOpSxZvNtmAITwil2d/JuLzfwOGjMfKYXd3WIAr1XHvCK7oN62hsfs6d2SlsN2uZ29zK8kBrMow2yhddW0xIqK1GQUXd0iiYK6Sle0UC7qpnWTj3mSnNAZcr/SxKFpMzr3UEIG5C8tgBfEmK7x6Fj2Gc3LTer0uCW2uFskc0etaKQ2O0KETnENsy4A7bfyJl++YyRmbKiZLg+UzCMCjuXUtH7XSH8X4IDLXZPldr0N0mfeUC2LdNOe8vkV5u8D8a1OxYV96MxNAcJ4s+bUhsmCERTMNyhBTMGx0=

@@ -1,0 +1,44 @@
+<ion-menu [content]="content" (ionClose)="menuClosed()">
+  <ion-header>
+    <ion-toolbar class="profile">
+      <ion-item>
+        <ion-avatar margin-vertical>
+          <img src="{{getUser()?.image}}">
+        </ion-avatar>
+        <div icon-right class="user-options-toggle" (click)="toggleUserOptions($event)">
+          <h2>{{getUser()?.name}}</h2>
+          {{getUser()?.email || '&mdash;'}}
+          <ion-icon name="{{areUserOptionsToggled ? 'arrow-dropup' : 'arrow-dropdown'}}"></ion-icon>
+        </div>
+      </ion-item>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [ngSwitch]="areUserOptionsToggled">
+    <ion-list no-lines class="pages-list" *ngSwitchCase="false">
+      <button ion-item menuClose *ngFor="let p of pages"
+        [ngClass]="{'active': isActivePage(p)}"
+        (click)="openPage(p)">
+        <ion-icon item-left name="{{p.icon}}"></ion-icon>
+        {{p.title}}
+      </button>
+    </ion-list>
+
+    <ion-list no-lines class="account-list" *ngSwitchCase="true">
+      <button ion-item menuClose (click)="settings()">
+        <ion-icon item-left name="settings"></ion-icon>
+        Settings
+      </button>
+      <button ion-item menuClose (click)="linkUserAccounts()">
+        <ion-icon item-left name="contacts"></ion-icon>
+        Link User Accounts
+      </button>
+      <button ion-item menuClose (click)="logout()">
+        <ion-icon item-left name="exit"></ion-icon>
+        Logout
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #content></ion-nav>

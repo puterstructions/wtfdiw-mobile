@@ -1,0 +1,76 @@
+<ion-header class="want-detail">
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="toggleNotifications()">
+        {{areNotificationsDisabled ? 'Off' : 'On'}}
+        <ion-icon name="{{!areNotificationsDisabled ? 'notifications' : 'notifications-off'}}"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <ion-toolbar color="primary">
+    <div padding>
+      <h3>{{(want | async)?.description}}</h3>
+      <h4>{{(want | async)?.ts | date:'mediumDate'}}</h4>
+      <p no-margin>
+        <span *ngIf="getLatestSampleTs()">Last sampled {{getLatestSampleTs() | date:'medium'}}</span>
+        <span *ngIf="!getLatestSampleTs()">Not yet sampled</span>
+      </p>
+    </div>
+
+    <ion-fab top right edge class="decide-btns">
+      <button ion-fab color="light">
+        <ion-icon color="primary" name="done-all"></ion-icon>
+      </button>
+      <ion-fab-list side="left">
+        <button ion-fab color="light">
+          <ion-icon color="primary" name="thumbs-up"></ion-icon>
+        </button>
+        <button ion-fab color="light">
+          <ion-icon color="light" name="thumbs-down"></ion-icon>
+        </button>
+      </ion-fab-list>
+    </ion-fab>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="want-detail outer-content">
+  <ion-grid class="tally-list" margin-vertical>
+    <ion-row>
+      <ion-col text-center>
+        <button ion-fab color="positive">
+          <ion-icon name="thumbs-up"></ion-icon>
+          <p>{{getYesTally()}}</p>
+        </button>
+      </ion-col>
+      <ion-col text-center>
+        <button ion-fab color="negative">
+          <ion-icon name="thumbs-down"></ion-icon>
+          <p>{{getNoTally()}}</p>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list margin-top *ngIf="(samples | async)?.length">
+    <ion-list-header>
+      Latest Samples
+    </ion-list-header>
+
+    <ion-item *ngFor="let sample of (samples | async)" [ngSwitch]="sample.vote">
+      <ion-icon item-left *ngSwitchCase="0" name="remove" color="light"></ion-icon>
+      <ion-icon item-left *ngSwitchCase="1" name="thumbs-up" color="positive"></ion-icon>
+      <ion-icon item-left *ngSwitchCase="0-1" name="thumbs-down" color="negative"></ion-icon>
+      <h2>
+        {{sample.ts | date:'medium'}}
+      </h2>
+      <p>({{sample.latitude}}, {{sample.longitude}})</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
