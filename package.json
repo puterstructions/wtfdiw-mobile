@@ -49,6 +49,7 @@
     "cordova-plugin-geolocation@~2.4.0",
     "cordova-plugin-compat@~1.0.0",
     "cordova-plugin-app-event@~1.2.0",
+    "cordova-plugin-nativestorage@~2.0.2",
     {
       "id": "de.appplant.cordova.plugin.local-notification",
       "locator": "https://github.com/puterstructions/cordova-plugin-local-notifications"
